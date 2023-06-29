@@ -2,6 +2,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
+def get_newyear_roc(data: pd.DataFrame, col: str, start_date = '2019-12-31 12', end_date ='2020-01-01 06'):
+    df = data[col].dropna()
+    df_ny = df[start_date:end_date]
+    df_ny_roc = (df_ny.to_numpy()[1:] - df_ny.to_numpy()[:-1])/((df_ny.index[1:] - df_ny.index[:-1])/np.timedelta64(1,'m'))
+    return df_ny_roc
+
 def maxmin_roc(data: pd.DataFrame, col: str, start_date = '2019-12-31 12', end_date ='2020-01-01 06'):
     df = data[col].dropna()
     df_ny = df[start_date:end_date]
